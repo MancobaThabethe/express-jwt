@@ -1,1 +1,6 @@
 20240505	01:15:03	97e2f91f-5e97-48fd-8699-6407162a1974	TypeError: res.sendStaus is not a function
+20240505	03:31:08	a2f3e511-f152-481a-a808-671574f7de2a	TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'MongoClient'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'client' closes the circle
