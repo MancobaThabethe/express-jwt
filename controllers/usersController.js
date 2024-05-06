@@ -7,44 +7,45 @@ const getAllUsers = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    if(req?.body.id) return res.status(400).json({ "message": `Employee ID parameter required` })
+    if(req?.body.id) return res.status(400).json({ "message": `User ID parameter required` })
     
-    const employee = await Employee.findOne({_id: req.body._id}).exec()
-    if (!employee) {
-        return res.status(400).json({ "message": `Employee ID ${req.body._id} not found` });
+    const user = await User.findOne({_id: req.body._id}).exec()
+    if (!user) {
+        return res.status(400).json({ "message": `User ID ${req.body._id} not found` });
     }
-    if (req.body.firstname) employee.firstname = req.body.firstname;
-    if (req.body.lastname) employee.lastname = req.body.lastname;
-    await employee.save()
+    if (req.body.username) user.username = req.body.username;
+    if (req.body.roles) user.roles = req.body.roles;
+    if (req.body.password) user.password = req.body.password;
+    await user.save()
 
-    res.json({"message": `Employee ID ${req.body._id} details updated.` });
+    res.json({"message": `User ID ${req.body._id} details updated.` });
 }
 
-const deleteEmployee = async (req, res) => {
-    if(req?.body.id) return res.status(400).json({ "message": `Employee ID parameter required` })
-    const employee = await Employee.findOne({'_id': req.body._id}).exec()
-    if (!employee) {
-        return res.status(400).json({ "message": `Employee ID ${req.body._id} not found` });
+const deleteUser = async (req, res) => {
+    if(req?.params.id) return res.status(400).json({ "message": `User ID parameter required` })
+    const user = await User.findOne({'_id': req.params.id}).exec()
+    if (!user) {
+        return res.status(400).json({ "message": `User ID ${req.body.id} not found` });
     }
     
-    await Employee.deleteOne({_id: req.body._id})
+    await User.deleteOne({_id: req.params.id})
+    const users = await User.find()
 
-    res.json(data.employees);
+    res.json(users);
 }
 
-const getEmployee = async(req, res) => {
-    if(req?.params.id) return res.status(400).json({ "message": `Employee ID parameter required` })
-        const employee = await Employee.findOne({_id: req.params.id}).exec()
-    if (!employee) {
-        return res.status(400).json({ "message": `Employee ID ${req.params.id} not found` });
+const getUser = async(req, res) => {
+    if(req?.params.id) return res.status(400).json({ "message": `User ID parameter required` })
+        const user = await User.findOne({_id: req.params.id}).exec()
+    if (!user) {
+        return res.status(400).json({ "message": `User ID ${req.params.id} not found` });
     }
-    res.json(employee);
+    res.json(user);
 }
 
 module.exports = {
     getAllUsers,
-    createNewEmployee,
-    updateEmployee,
-    deleteEmployee,
-    getEmployee
+    updateUser,
+    deleteUser,
+    getUser
 }
