@@ -1,1 +1,1 @@
-# To be deployerd to glitch.com.
+# To be deployed to glitch.com
